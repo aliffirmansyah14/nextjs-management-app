@@ -31,15 +31,13 @@ export default function RegisterPage() {
 								<span className="font-bold">Google</span>
 							</Button>
 						</li>
-						<li>
-							<div className="text-blue-600 text-center">
-								Belum punya akun ?.{" "}
-								<Link href="/register" className="underline">
-									sign up
-								</Link>
-							</div>
-						</li>
 					</ul>
+					<div className="text-blue-600 text-center">
+						Belum punya akun ?.{" "}
+						<Link href="/register" className="underline">
+							sign up
+						</Link>
+					</div>
 				</>
 			}
 		/>
