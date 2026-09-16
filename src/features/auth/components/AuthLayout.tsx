@@ -9,7 +9,10 @@ export default function AuthLayout({
 }: AuthLayoutProps) {
 	return (
 		<div
-			className={cn("min-h-dvh flex justify-center items-center", className)}
+			className={cn(
+				"min-h-dvh flex justify-center items-center bg-muted",
+				className,
+			)}
 			{...props}
 		>
 			{children}

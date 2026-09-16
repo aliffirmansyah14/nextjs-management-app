@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -25,6 +26,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 			lang="en"
 			className={`antialiased ${inter.variable} ${geistSans.variable} ${geistMono.variable} font-sans`}
 		>
+			<head>
+				{/* script react scan */}
+				<Script
+					src="//unpkg.com/react-scan/dist/auto.global.js"
+					crossOrigin="anonymous"
+					strategy="beforeInteractive"
+				/>
+			</head>
 			<body>{children}</body>
 		</html>
 	);
