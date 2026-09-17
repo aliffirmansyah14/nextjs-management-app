@@ -5,6 +5,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
+import Image from "next/image";
 
 type AuthCardProps = {
 	title: string;
@@ -13,8 +14,12 @@ type AuthCardProps = {
 
 export default function AuthCard({ title, children }: AuthCardProps) {
 	return (
-		<Card className="w-full max-w-sm ring-0 shadow-none md:ring-1 md:shadow-lg pt-8">
-			<CardHeader className="justify-center">
+		<Card className="mx-auto w-full max-w-sm min-h-dvh md:min-h-auto ring-0 shadow-none md:ring-1 sm:shadow-lg pt-8">
+			<CardHeader className="justify-center gap-5">
+				<div className=" flex items-center justify-center">
+					<Image width={40} height={40} src="/taskly-logo.png" alt="logo" />
+					<span className="font-bold text-xl">Taskly</span>
+				</div>
 				<CardTitle className="font-bold">{title}</CardTitle>
 			</CardHeader>
 			<CardContent>{children}</CardContent>

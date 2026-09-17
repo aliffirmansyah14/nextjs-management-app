@@ -10,7 +10,7 @@ export default function AuthLayout({
 	return (
 		<div
 			className={cn(
-				"min-h-dvh flex justify-center items-center bg-muted",
+				"min-h-dvh  my-0 md:my-12 bg-background md:bg-muted",
 				className,
 			)}
 			{...props}
