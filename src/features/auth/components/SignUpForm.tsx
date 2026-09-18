@@ -11,6 +11,7 @@ import {
 	signUpFormSchema,
 	SignUpFormType,
 } from "@/features/auth/schemas/auth.schema";
+import PasswordInput from "./PasswordInput";
 
 export const FORM_ID = "form-register";
 
@@ -76,10 +77,9 @@ export default function SignUpForm() {
 					name="password"
 					label="Password"
 					renderInput={(field, invalid) => (
-						<Input
+						<PasswordInput
 							{...field}
 							id={field.name}
-							type="password"
 							aria-invalid={invalid}
 							placeholder="your password"
 							autoComplete="current-password"
@@ -92,10 +92,9 @@ export default function SignUpForm() {
 					name="confirmPassword"
 					label="Confirm Password"
 					renderInput={(field, invalid) => (
-						<Input
+						<PasswordInput
 							{...field}
 							id={field.name}
-							type="password"
 							aria-invalid={invalid}
 							placeholder="your password"
 							autoComplete="match-password"

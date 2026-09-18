@@ -8,14 +8,16 @@ export default function AuthLayout({
 	...props
 }: AuthLayoutProps) {
 	return (
-		<div
+		<main
 			className={cn(
-				"min-h-dvh  my-0 md:my-12 bg-background md:bg-muted",
+				"min-h-dvh",
+				"py-0 md:py-12",
+				"bg-background md:bg-muted",
 				className,
 			)}
 			{...props}
 		>
 			{children}
-		</div>
+		</main>
 	);
 }

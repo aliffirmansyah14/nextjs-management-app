@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { signInAction } from "../actions/signin.action";
 import LinkDirect from "./LinkDirect";
 import GoogleOauthButton from "./GoogleOauthButton";
+import PasswordInput from "./PasswordInput";
 
 export const FORM_ID = "form-login";
 
@@ -57,11 +58,10 @@ export default function LoginForm() {
 					name="password"
 					label="Password"
 					renderInput={(field, invalid) => (
-						<Input
+						<PasswordInput
 							{...field}
 							id={field.name}
 							aria-invalid={invalid}
-							type="password"
 							placeholder="your password"
 							autoComplete="current-password"
 							className="h-10"
