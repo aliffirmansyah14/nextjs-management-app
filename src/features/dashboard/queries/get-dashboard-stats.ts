@@ -12,15 +12,15 @@ export const getDashboardStats = async (userId: string) => {
 
 	return {
 		workspaces: {
-			increase: currentStats.workspaces - lastWeekStats.workspaces,
+			weeklyAdded: lastWeekStats.workspaces,
 			total: currentStats.workspaces,
 		},
 		projects: {
-			increase: currentStats.projects - lastWeekStats.projects,
+			weeklyAdded: lastWeekStats.projects,
 			total: currentStats.projects,
 		},
 		task: {
-			increase: currentStats.tasks - lastWeekStats.tasks,
+			weeklyAdded: lastWeekStats.tasks,
 			total: currentStats.tasks,
 		},
 		completeTask: {
@@ -30,7 +30,7 @@ export const getDashboardStats = async (userId: string) => {
 };
 
 const getCounts = async (userId: string, beforeDate?: Date) => {
-	const dateFilter = beforeDate ? { lte: beforeDate } : undefined;
+	const dateFilter = beforeDate ? { gte: beforeDate } : undefined;
 
 	const [workspaces, projects, tasksGroupByStatus] = await Promise.all([
 		// Count Workspaces
@@ -50,7 +50,7 @@ const getCounts = async (userId: string, beforeDate?: Date) => {
 		}),
 
 		// Count Tasks milik user
-		await prisma.task.groupBy({
+		prisma.task.groupBy({
 			by: ["status"],
 			_count: {
 				_all: true,

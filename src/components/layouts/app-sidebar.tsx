@@ -43,7 +43,7 @@ export default function AppSidebar({
 	const currentPathname = usePathname();
 
 	return (
-		<aside className="sticky bg-background top-0 w-(--sidebar-width) h-dvh border-r border-border">
+		<aside className="sticky hidden sm:block bg-background top-0 w-(--sidebar-width) h-dvh border-r border-border">
 			<div className="flex flex-col px-4 pt-4 h-full">
 				<div className="flex-1 flex flex-col gap-4 min-h-0 ">
 					{/* logo */}

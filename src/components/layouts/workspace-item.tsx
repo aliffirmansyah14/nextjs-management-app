@@ -3,6 +3,7 @@ import { ChevronUp, Folder } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { SidebarItem } from "./app-sidebar";
+import WorkspaceIcon from "../shared/workspace-icon";
 
 type WorkspacesItemProps = {
 	index: number;
@@ -34,16 +35,14 @@ export default function WorkspacesItem({
 				isActive={isExtends}
 				onClick={handleOnLick}
 				icon={
-					<div className="flex gap-4">
-						<div
-							className={`size-6 aspect-square flex justify-center items-center rounded-md text-white ${bgColors[index % bgColors.length]}`}
-						>
-							{name[0].toLocaleUpperCase()}
-						</div>
+					<WorkspaceIcon
+						styleIcon={bgColors[(index %= bgColors.length)]}
+						text={name}
+					>
 						<span className="font-medium tracking-tighter text-muted-foreground">
 							{name}
 						</span>
-					</div>
+					</WorkspaceIcon>
 				}
 			>
 				{/* jiikka ada children render icon  */}

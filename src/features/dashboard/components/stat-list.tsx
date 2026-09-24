@@ -1,5 +1,4 @@
 import { User } from "@/types/user";
-import Icon from "@/components/shared/icon";
 import {
 	CheckCheck,
 	CheckSquare,
@@ -8,79 +7,55 @@ import {
 } from "lucide-react";
 import StatCard from "./stat-card";
 import { getDashboardStats } from "../queries/get-dashboard-stats";
+import { Icon as IconType } from "@/types/icon";
 
 export type Stat = {
 	title: string;
-	icon: React.ReactNode;
+	icon: IconType;
 	stat: number;
 	increase: number;
 	description?: string;
+	color: "purple" | "green" | "orange" | "primary";
 };
 
-export default async function StatList({ user }: { user: User | null }) {
-	if (!user) {
-		return null;
-	}
-
+export default async function StatList({ user }: { user: User }) {
 	const { completeTask, projects, task, workspaces } = await getDashboardStats(
 		user.id,
 	);
 
 	// Menghindari Division by Zero (NaN)
 	const completionPercentage =
-		task.total > 0
-			? Number(((completeTask.total / task.total) * 100).toFixed(1))
-			: 0;
+		task.total > 0 ? Math.floor((completeTask.total / task.total) * 100) : 0;
 
 	const stats: Stat[] = [
 		{
 			title: "Total Workspaces",
-			icon: (
-				<Icon
-					className="bg-purple-500/10"
-					icon={Folder}
-					render={Comp => <Comp className="text-purple-500 size-6" />}
-				/>
-			),
+			icon: Folder,
 			stat: workspaces.total,
-			increase: workspaces.increase,
+			increase: workspaces.weeklyAdded,
+			color: "purple",
 		},
 		{
 			title: "Total Projects",
-			icon: (
-				<Icon
-					className="bg-green-500/10"
-					icon={CheckSquare2Icon}
-					render={Comp => <Comp className="text-green-500 size-6" />}
-				/>
-			),
+			icon: CheckSquare2Icon,
 			stat: projects.total,
-			increase: projects.increase,
+			increase: projects.weeklyAdded,
+			color: "green",
 		},
 		{
 			title: "Total Tasks",
-			icon: (
-				<Icon
-					className="bg-primary/10"
-					icon={CheckSquare}
-					render={Comp => <Comp className="text-primary size-6" />}
-				/>
-			),
+			icon: CheckSquare,
+			color: "orange",
 			stat: task.total,
-			increase: task.increase,
+			increase: task.weeklyAdded,
 		},
 		{
 			title: "Completed Tasks",
-			icon: (
-				<Icon
-					className="bg-green-600/10"
-					icon={CheckCheck}
-					render={Comp => <Comp className="text-green-600 size-6" />}
-				/>
-			),
+			icon: CheckCheck,
+			color: "primary",
 			stat: completeTask.total,
 			increase: completionPercentage,
-			description: "% of total tasks",
+			description: "dari total taks",
 		},
 	];
 
@@ -93,6 +68,7 @@ export default async function StatList({ user }: { user: User | null }) {
 					increase={stat.increase}
 					title={stat.title}
 					stat={stat.stat}
+					color={stat.color}
 					description={stat.description}
 				/>
 			))}
