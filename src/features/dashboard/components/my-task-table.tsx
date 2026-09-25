@@ -9,13 +9,11 @@ import {
 } from "@/components/ui/table";
 import DashboardCard from "./dashboard-card";
 import TaskTableRow from "./task-table-row";
-import { getMyTasks } from "../queries/get-my-tasks";
 import { User } from "@/types/user";
 import { TaskStatusParams } from "../types/status-params";
 import { TaskStatusTab } from "./task-status-tabs";
 import { Suspense } from "react";
 import { Spinner } from "@/components/ui/spinner";
-import { delay } from "@/lib/utils";
 
 type MyTaskTableProps = {
 	searchhParamsPromise: Promise<{
@@ -35,14 +33,11 @@ export async function MyTaskTable({
 	searchhParamsPromise,
 	user,
 }: MyTaskTableProps) {
-	await delay(3000);
 	const statusParams = (await searchhParamsPromise).status;
 
 	const status = validStatus.includes(statusParams as any)
 		? (statusParams as TaskStatusParams)
 		: "ALL";
-
-	const promiseTask = getMyTasks({ userId: user.id, status });
 
 	return (
 		<DashboardCard
@@ -66,6 +61,7 @@ export async function MyTaskTable({
 				</TableHeader>
 				<TableBody>
 					<Suspense
+						key={status}
 						fallback={
 							<TableRow>
 								<TableCell colSpan={5}>
@@ -79,7 +75,7 @@ export async function MyTaskTable({
 							</TableRow>
 						}
 					>
-						<TaskTableRow key={status} promiseTask={promiseTask} />
+						<TaskTableRow userId={user.id} status={status} />
 					</Suspense>
 				</TableBody>
 			</Table>

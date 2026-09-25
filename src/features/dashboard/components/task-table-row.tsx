@@ -1,14 +1,20 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 import { getMyTasks } from "../queries/get-my-tasks";
 import { delay } from "@/lib/utils";
+import { TaskStatusParams } from "../types/status-params";
 
 type TaskTableRowProps = {
-	promiseTask: ReturnType<typeof getMyTasks>;
+	userId: string;
+	status: TaskStatusParams;
 };
 
-export default async function TaskTableRow({ promiseTask }: TaskTableRowProps) {
+export default async function TaskTableRow({
+	status,
+	userId,
+}: TaskTableRowProps) {
 	await delay(5000);
-	const tasks = await promiseTask;
+	const tasks = await getMyTasks({ userId: userId, status });
+
 	return tasks.map(task => (
 		<TableRow key={task.id}>
 			<TableCell className="font-medium">{task.name}</TableCell>

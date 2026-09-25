@@ -3,11 +3,12 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TaskStatusParams } from "../types/status-params";
 import { startTransition, useCallback } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type TaskStatusTabProps = {
 	defaultValues: TaskStatusParams;
 };
+
 const tabs: Record<TaskStatusParams, string> = {
 	ALL: "All",
 	TODO: "Todo",
@@ -16,34 +17,31 @@ const tabs: Record<TaskStatusParams, string> = {
 };
 
 export function TaskStatusTab({ defaultValues }: TaskStatusTabProps) {
+	const router = useRouter();
+	const pathname = usePathname();
 	const searchParams = useSearchParams();
 
-	const createQueryStatus = useCallback(
-		(status: string) => {
-			const params = new URLSearchParams(searchParams.toString());
-			params.set("status", status);
+	const currentStatus =
+		(searchParams.get("status") as TaskStatusParams) || defaultValues;
 
-			return params.toString();
+	const handleValueChange = useCallback(
+		(newStatus: string) => {
+			// window.history.pushState(null, "", `${pathname}?${params.toString()}`);
+			startTransition(() => {
+				const params = new URLSearchParams(searchParams.toString());
+				params.set("status", newStatus);
+				router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+			});
 		},
-		[searchParams],
+		[router, pathname, searchParams],
 	);
 
 	return (
-		<Tabs defaultValue={defaultValues}>
+		<Tabs value={currentStatus} onValueChange={handleValueChange}>
 			<TabsList variant="line">
-				{Object.keys(tabs).map(tab => (
-					<TabsTrigger
-						onClick={e => {
-							e.preventDefault();
-							window.history.pushState(null, "", `?${createQueryStatus(tab)}`);
-							// router.push("/dashboard?" + createQueryStatus(tab), {
-							// 	scroll: false,
-							// });
-						}}
-						key={tabs[tab as keyof typeof tabs]}
-						value={tab}
-					>
-						{tabs[tab as keyof typeof tabs]}
+				{Object.entries(tabs).map(([statusKey, statusLabel]) => (
+					<TabsTrigger key={statusKey} value={statusKey}>
+						{statusLabel}
 					</TabsTrigger>
 				))}
 			</TabsList>

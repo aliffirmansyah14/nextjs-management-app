@@ -23,7 +23,6 @@ export default async function DashboardPage({
 	if (!user) {
 		redirect("/login");
 	}
-	const params = searchParams;
 
 	return (
 		<main className="px-6 py-4">
@@ -46,7 +45,7 @@ export default async function DashboardPage({
 				{/* table data my task */}
 				<div className="mt-4">
 					<Suspense fallback={<MyTableSkeleton />}>
-						<MyTaskTable searchhParamsPromise={params} user={user} />
+						<MyTaskTable searchhParamsPromise={searchParams} user={user} />
 					</Suspense>
 				</div>
 			</div>
