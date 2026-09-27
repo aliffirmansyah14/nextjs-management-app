@@ -1,7 +1,7 @@
 import { getAllWorkspaces } from "@/features/workspace/queries/get-all-workspaces";
 import WorkspacesItem from "./workspace-item";
 
-type WorkspacesListProps = {
+export type WorkspacesListProps = {
 	promiseWorkspaces: ReturnType<typeof getAllWorkspaces>;
 };
 

@@ -55,29 +55,29 @@ export function UserNav() {
 				<DropdownMenuTrigger
 					className={cn(
 						"flex justify-center gap-1 items-center",
-						"pl-4 pr-3 py-2",
+						"px-1 py-1 md:pl-4 md:pr-3 md:py-2",
 						"rounded-lg hover:bg-muted",
-						"rotate-0 aria-expanded:bg-muted aria-expanded:[&_svg]:rotate-180",
+						"md:rotate-0 md:aria-expanded:bg-muted md:aria-expanded:[&_svg]:rotate-180",
 					)}
 				>
 					{session.user.image ? (
-						<div className="rounded-full overflow-hidden">
+						<div className="rounded-full border border-border md:border-0 overflow-hidden">
 							<Image
-								width={24}
-								height={24}
+								width={28}
+								height={28}
 								src={session.user.image}
 								alt="avatar user"
-								className="aspect-square"
+								className="aspect-square size-7"
 							/>
 						</div>
 					) : (
-						<div className="rounded-full size-7 bg-primary flex justify-center items-center text-white">
+						<div className=" rounded-full size-7 bg-primary flex justify-center items-center text-white">
 							{session.user.name[0].toLocaleUpperCase()}
 						</div>
 					)}
 
-					<span>{session.user.name}</span>
-					<ChevronDown className="ms-4 size-4 text-muted-foreground" />
+					<span className="hidden md:block">{session.user.name}</span>
+					<ChevronDown className="hidden md:block ms-4 size-4 text-muted-foreground" />
 				</DropdownMenuTrigger>
 
 				<DropdownMenuContent>

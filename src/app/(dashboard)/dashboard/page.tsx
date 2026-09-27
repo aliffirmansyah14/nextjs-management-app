@@ -25,7 +25,7 @@ export default async function DashboardPage({
 	}
 
 	return (
-		<main className="px-6 py-4">
+		<main className="px-4 md:px-6 py-4">
 			{/* ucapan selamat datang */}
 			<WelcomeBanner user={user} />
 

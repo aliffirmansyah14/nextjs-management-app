@@ -2,8 +2,8 @@
 import { ChevronUp, Folder } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { SidebarItem } from "./app-sidebar";
-import WorkspaceIcon from "../shared/workspace-icon";
+import SidebarItem from "@/components/layouts/sidebar/sidebar-item";
+import WorkspaceIcon from "@/components/shared/workspace-icon";
 
 type WorkspacesItemProps = {
 	index: number;

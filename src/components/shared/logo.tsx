@@ -7,9 +7,9 @@ const logoVariants = cva(
 	{
 		variants: {
 			size: {
-				default: "h-9 gap-3 px-2.5 gap-4",
-				sm: "h-8 gap-2 px-2.5 text-[0.8rem] [&_div]:rounded-lg [&_div>svg:not([class*='size-'])]:size-4 [&_span]:text-base",
-				lg: "h-10 gap-3 px-2.5 [&_div>svg:not([class*='size-'])]:size-10 [&_span]:text-3xl [&_div]:rounded-xl",
+				default: "h-9 gap-1",
+				sm: "h-8 gap-1 text-[0.8rem] [&_div]:rounded-md [&_div>svg:not([class*='size-'])]:size-4 [&_span]:text-base",
+				lg: "h-10 gap-3 [&_div>svg:not([class*='size-'])]:size-10 [&_span]:text-3xl [&_div]:rounded-xl",
 			},
 		},
 		defaultVariants: {
@@ -18,7 +18,7 @@ const logoVariants = cva(
 	},
 );
 
-type LogoProps<T extends React.ElementType = "div"> = {
+export type LogoProps<T extends React.ElementType = "div"> = {
 	as?: T;
 	styleText?: string;
 } & React.ComponentProps<T> &

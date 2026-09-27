@@ -24,7 +24,12 @@ export function TaskStatusTab() {
 		(newStatus: string) => {
 			// window.history.pushState(null, "", `${pathname}?${params.toString()}`);
 			const params = new URLSearchParams(searchParams.toString());
-			params.set("status", newStatus);
+
+			if (newStatus === "ALL") {
+				params.delete("status");
+			} else {
+				params.set("status", newStatus);
+			}
 
 			startTransition(() => {
 				router.replace(`${pathname}?${params.toString()}`, { scroll: false });

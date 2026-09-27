@@ -11,12 +11,12 @@ const getGreeting = () => {
 
 export default function WelcomeBanner({ user }: { user: User }) {
 	return (
-		<div className="space-y-2">
-			<h1 className="text-3xl font-semibold tracking-tight">
+		<div className="space-y-1">
+			<h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
 				{getGreeting()},
 				<span className="capitalize"> {user?.name || "tanpa nama"}</span>
 			</h1>
-			<div className="text-muted-foreground tracking-tight">
+			<div className="text-sm md:text-base text-muted-foreground tracking-tight">
 				Berikut ini apa yang terjadi di project hari ini.
 			</div>
 		</div>
