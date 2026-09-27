@@ -5,10 +5,6 @@ import { TaskStatusParams } from "../types/status-params";
 import { startTransition, useCallback } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-type TaskStatusTabProps = {
-	defaultValues: TaskStatusParams;
-};
-
 const tabs: Record<TaskStatusParams, string> = {
 	ALL: "All",
 	TODO: "Todo",
@@ -16,20 +12,21 @@ const tabs: Record<TaskStatusParams, string> = {
 	DONE: "Done",
 };
 
-export function TaskStatusTab({ defaultValues }: TaskStatusTabProps) {
+export function TaskStatusTab() {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 
 	const currentStatus =
-		(searchParams.get("status") as TaskStatusParams) || defaultValues;
+		(searchParams.get("status") as TaskStatusParams) ?? "ALL";
 
 	const handleValueChange = useCallback(
 		(newStatus: string) => {
 			// window.history.pushState(null, "", `${pathname}?${params.toString()}`);
+			const params = new URLSearchParams(searchParams.toString());
+			params.set("status", newStatus);
+
 			startTransition(() => {
-				const params = new URLSearchParams(searchParams.toString());
-				params.set("status", newStatus);
 				router.replace(`${pathname}?${params.toString()}`, { scroll: false });
 			});
 		},

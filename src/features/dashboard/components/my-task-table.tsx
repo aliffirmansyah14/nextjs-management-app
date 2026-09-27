@@ -13,7 +13,7 @@ import { User } from "@/types/user";
 import { TaskStatusParams } from "../types/status-params";
 import { TaskStatusTab } from "./task-status-tabs";
 import { Suspense } from "react";
-import { Spinner } from "@/components/ui/spinner";
+import TaskTableLoading from "./task-table-loading";
 
 type MyTaskTableProps = {
 	searchhParamsPromise: Promise<{
@@ -35,9 +35,7 @@ export async function MyTaskTable({
 }: MyTaskTableProps) {
 	const statusParams = (await searchhParamsPromise).status;
 
-	const status = validStatus.includes(statusParams as any)
-		? (statusParams as TaskStatusParams)
-		: "ALL";
+	const status = validStatus.find(status => statusParams === status) ?? "ALL";
 
 	return (
 		<DashboardCard
@@ -46,7 +44,7 @@ export async function MyTaskTable({
 			actionUrl="/tasks"
 		>
 			{/* status tab */}
-			<TaskStatusTab defaultValues={status} />
+			<TaskStatusTab />
 			{/* table */}
 			<Table>
 				<TableCaption>Daftar task yang dikerjakan</TableCaption>
@@ -60,21 +58,7 @@ export async function MyTaskTable({
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					<Suspense
-						key={status}
-						fallback={
-							<TableRow>
-								<TableCell colSpan={5}>
-									<div className="flex justify-center items-center py-5">
-										<div className="bg-muted rounded-full flex gap-2 px-3 py-1 items-center *:text-muted-foreground">
-											<Spinner />
-											Loading data...
-										</div>
-									</div>
-								</TableCell>
-							</TableRow>
-						}
-					>
+					<Suspense key={status} fallback={<TaskTableLoading />}>
 						<TaskTableRow userId={user.id} status={status} />
 					</Suspense>
 				</TableBody>

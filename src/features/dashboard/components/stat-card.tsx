@@ -76,7 +76,7 @@ export default function StatCard({
 					</span>
 
 					<span className="text-muted-foreground/80">
-						{description ?? "daari minggu ini"}
+						{description ?? "dari minggu ini"}
 					</span>
 				</div>
 			</CardContent>

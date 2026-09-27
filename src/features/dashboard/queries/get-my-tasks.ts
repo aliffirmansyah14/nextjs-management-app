@@ -31,5 +31,8 @@ export const getMyTasks = async ({
 			}),
 		},
 		take: 5,
+		orderBy: {
+			dueDate: "asc",
+		},
 	});
 };
