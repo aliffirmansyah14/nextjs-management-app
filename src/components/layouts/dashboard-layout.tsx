@@ -21,21 +21,17 @@ export default async function DasahboardLayout({
 
 	return (
 		<div className={cn("min-h-dvh flex bg-muted", className)} {...props}>
-			<AppSidebar
-				workspacesList={
-					<Suspense fallback={<WorkspacesSkeleton />}>
-						<WorkspacesList promiseWorkspaces={promiseWorkspaces} />
-					</Suspense>
-				}
-			/>
+			<AppSidebar>
+				<Suspense fallback={<WorkspacesSkeleton />}>
+					<WorkspacesList promiseWorkspaces={promiseWorkspaces} />
+				</Suspense>
+			</AppSidebar>
 
-			<MobilenNav
-				workspacesList={
-					<Suspense fallback={<WorkspacesSkeleton />}>
-						<WorkspacesList promiseWorkspaces={promiseWorkspaces} />
-					</Suspense>
-				}
-			/>
+			<MobilenNav>
+				<Suspense fallback={<WorkspacesSkeleton />}>
+					<WorkspacesList promiseWorkspaces={promiseWorkspaces} />
+				</Suspense>
+			</MobilenNav>
 
 			<main className="flex-1">
 				<AppHeader />
