@@ -1,3 +1,4 @@
+import Logo from "@/components/shared/logo";
 import {
 	Card,
 	CardContent,
@@ -15,18 +16,9 @@ type AuthCardProps = {
 export default function AuthCard({ title, children }: AuthCardProps) {
 	return (
 		<Card className="mx-auto w-full max-w-sm min-h-dvh md:min-h-auto ring-0 shadow-none md:ring-1 sm:shadow-lg pt-8">
-			<CardHeader className="justify-center gap-5">
-				<div className=" flex items-center justify-center">
-					<Image
-						width={40}
-						height={40}
-						src="/taskly-logo.png"
-						alt="logo"
-						className="aspect-square"
-					/>
-					<span className="font-bold text-xl">Taskly</span>
-				</div>
-				<CardTitle className="font-bold">{title}</CardTitle>
+			<CardHeader className="gap-5">
+				<Logo size="lg" />
+				<CardTitle className="font-bold text-center">{title}</CardTitle>
 			</CardHeader>
 			<CardContent>{children}</CardContent>
 			<CardFooter className="bg-card">
