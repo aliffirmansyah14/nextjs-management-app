@@ -1,6 +1,5 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 import { getMyTasks } from "../queries/get-my-tasks";
-import { delay } from "@/lib/utils";
 import { TaskStatusParams } from "../types/status-params";
 import EmptyState from "@/components/shared/empty-state";
 
@@ -13,7 +12,7 @@ export default async function TaskTableRow({
 	status,
 	userId,
 }: TaskTableRowProps) {
-	await delay(5000);
+	// await delay(5000);
 	const tasks = await getMyTasks({ userId: userId, status });
 
 	if (tasks.length === 0) {

@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 
-export const getAllWorkspaces = async (userId: string) => {
+export const getUserWorkspaces = async (userId: string) => {
 	return prisma.workspace.findMany({
 		where: {
 			ownerId: userId,
@@ -8,7 +8,12 @@ export const getAllWorkspaces = async (userId: string) => {
 		select: {
 			id: true,
 			name: true,
-			projects: true,
+			projects: {
+				select: {
+					id: true,
+					name: true,
+				},
+			},
 		},
 		orderBy: {
 			createdAt: "desc",

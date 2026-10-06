@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { requireSession } from "@/lib/auth/session";
 import { Suspense } from "react";
-import { getAllWorkspaces } from "@/features/workspace/queries/get-all-workspaces";
+import { getUserWorkspaces } from "@/features/workspace/queries/get-user-workpaces";
 import AppSidebar from "./app-sidebar";
 import AppHeader from "./app-header";
 import WorkspacesSkeleton from "./sidebar/workspace-skeleton";
@@ -17,7 +17,7 @@ export default async function DasahboardLayout({
 }: DasahboardLayout) {
 	const session = await requireSession();
 
-	const promiseWorkspaces = getAllWorkspaces(session.user.id);
+	const promiseWorkspaces = getUserWorkspaces(session.user.id);
 
 	return (
 		<div className={cn("min-h-dvh flex bg-muted", className)} {...props}>
