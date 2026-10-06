@@ -7,7 +7,7 @@ import SidebarHeader from "./sidebar/sidebar-header";
 export default function AppHeader() {
 	return (
 		<header className="bg-background h-17 py-3">
-			<div className="h-full flex items-center gap-8 px-6">
+			<div className="h-full flex items-center gap-8 px-4 md:px-6">
 				<div className="md:hidden flex items-center gap-2">
 					<ButtonTriggerMobileNav />
 					<SidebarHeader size="default" />
