@@ -1,3 +1,4 @@
+import AppContainer from "@/components/layouts/app-container";
 import MyTableSkeleton from "@/features/dashboard/components/my-task-skeleton";
 import { MyTaskTable } from "@/features/dashboard/components/my-task-table";
 import RecentList from "@/features/dashboard/components/recent-list";
@@ -25,7 +26,7 @@ export default async function DashboardPage({
 	}
 
 	return (
-		<div className="px-4 md:px-6 py-4">
+		<AppContainer>
 			{/* ucapan selamat datang */}
 			<WelcomeBanner user={user} />
 
@@ -49,6 +50,6 @@ export default async function DashboardPage({
 					</Suspense>
 				</div>
 			</div>
-		</div>
+		</AppContainer>
 	);
 }

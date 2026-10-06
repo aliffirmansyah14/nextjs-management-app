@@ -1,3 +1,5 @@
+import AppContainer from "@/components/layouts/app-container";
+
 export default function page() {
-	return <div>workspaces</div>;
+	return <AppContainer>workspaces</AppContainer>;
 }
