@@ -1,14 +1,14 @@
-import { getAllWorkspaces } from "@/features/workspace/queries/get-all-workspaces";
 import WorkspacesItem from "./workspace-item";
+import { getUserWorkspacesProjects } from "@/features/workspace/queries/get-user-workspaces-projects";
 
 export type WorkspacesListProps = {
-	promiseWorkspaces: ReturnType<typeof getAllWorkspaces>;
+	promiseWorkspacesProjects: ReturnType<typeof getUserWorkspacesProjects>;
 };
 
 export default async function WorkspacesList({
-	promiseWorkspaces,
+	promiseWorkspacesProjects,
 }: WorkspacesListProps) {
-	const myWorkspaces = await promiseWorkspaces;
+	const myWorkspaces = await promiseWorkspacesProjects;
 
 	return (
 		// harus dikasih h-full biar tahu heightnya agar bisa di overflow-auto
