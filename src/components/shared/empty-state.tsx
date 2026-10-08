@@ -17,7 +17,7 @@ export default function EmptyState({
 				{icon ? icon : <Inbox className="size-5 text-muted-foreground" />}
 			</div>
 
-			<h3 className="mt-4 font-medium tracking-tight">{title}</h3>
+			<h3 className="mt-2 font-semibold tracking-tight">{title}</h3>
 
 			<p className="mt-1 max-w-xs text-sm text-muted-foreground">
 				{description}
