@@ -7,6 +7,7 @@ import WorkspacesSkeleton from "./sidebar/workspace-skeleton";
 import WorkspacesList from "./sidebar/workspace-list";
 import MobilenNav from "./mobile-nav";
 import { getUserWorkspacesProjects } from "@/features/workspace/queries/get-user-workspaces-projects";
+import { Toaster } from "@/components/ui/sonner";
 
 type DasahboardLayout = React.ComponentPropsWithoutRef<"div">;
 
@@ -41,6 +42,7 @@ export default async function DasahboardLayout({
 				<AppHeader />
 				{children}
 			</main>
+			<Toaster />
 		</div>
 	);
 }

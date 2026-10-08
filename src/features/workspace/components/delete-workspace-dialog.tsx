@@ -14,6 +14,7 @@ import { useWorkspaceModal } from "../stores/use-workspace-modal";
 import { useState } from "react";
 import { deleteWorkspaceAction } from "../actions/delete-workspace";
 import { Spinner } from "@/components/ui/spinner";
+import { toastError, toastSuccess } from "@/lib/toast";
 
 export function DeleteWorkspaceDialog() {
 	const { isOpen, type, data, closeModal } = useWorkspaceModal();
@@ -29,10 +30,12 @@ export function DeleteWorkspaceDialog() {
 		try {
 			const response = await deleteWorkspaceAction(data.id);
 
-			// tambahkan toast
-			if (response.success) {
-				closeModal();
+			if (!response.success) {
+				toastError(response.message);
 			}
+
+			toastSuccess(response.message);
+			closeModal();
 		} finally {
 			setIsloading(false);
 		}
