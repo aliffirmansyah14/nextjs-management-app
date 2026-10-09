@@ -21,7 +21,7 @@ export default async function DasahboardLayout({
 	const promiseWorkspacesProjects = getUserWorkspacesProjects(session.user.id);
 
 	return (
-		<div className={cn("min-h-dvh flex bg-muted", className)} {...props}>
+		<div className={cn("min-h-dvh flex bg-background", className)} {...props}>
 			<AppSidebar>
 				<Suspense fallback={<WorkspacesSkeleton />}>
 					<WorkspacesList
