@@ -6,19 +6,20 @@ import {
 	workspaceSchema,
 } from "@/features/workspace/schemas/workspace-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useWorkspaceModal } from "../stores/use-workspace-modal";
+import { useWorkspaceModal } from "@/features/workspace/stores/use-workspace-modal";
 import { FormField } from "@/components/shared/FormField";
 import { Input } from "@/components/ui/input";
 import { delay } from "@/lib/utils";
-import { createWorkspaceAction } from "../actions/create-workspace";
+import { createWorkspaceAction } from "@/features/workspace/actions/create-workspace";
 import { toastError, toastSuccess } from "@/lib/toast";
-import { stat } from "fs";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import { useEffect } from "react";
 import { ActionResponse } from "@/types/action";
-import { updateWorkspaceAction } from "../actions/update-workspace";
+import { updateWorkspaceAction } from "@/features/workspace/actions/update-workspace";
+import { FieldGroup } from "@/components/ui/field";
+import { Textarea } from "@/components/ui/textarea";
 
 type WorkspaceFormProps = {
 	onLoadingChange: (loading: boolean) => void;
@@ -35,13 +36,17 @@ export default function WorkspaceForm({ onLoadingChange }: WorkspaceFormProps) {
 		resolver: zodResolver(workspaceSchema),
 		defaultValues: {
 			name: data?.name ?? "",
+			description: data?.description ?? "",
 		},
 	});
 
 	// reset isi form tiap kali modal ditutup/buka
 	useEffect(() => {
 		if (data && type === "edit") {
-			workspaceForm.reset({ name: data.name });
+			workspaceForm.reset({
+				name: data.name,
+				description: data.description ?? "",
+			});
 		} else if (type === "create") {
 			workspaceForm.reset({ name: "" });
 		}
@@ -90,21 +95,42 @@ export default function WorkspaceForm({ onLoadingChange }: WorkspaceFormProps) {
 	return (
 		<>
 			<form id={formId} onSubmit={workspaceForm.handleSubmit(onSubmit)}>
-				<FormField
-					control={workspaceForm.control}
-					name="name"
-					label="Nama"
-					renderInput={(field, invalid) => (
-						<Input
-							{...field}
-							id={field.name}
-							aria-invalid={invalid}
-							placeholder="Team app"
-							autoComplete="Team app"
-							className="h-10"
-						/>
-					)}
-				/>
+				<FieldGroup className="gap-2">
+					<FormField
+						control={workspaceForm.control}
+						name="name"
+						label="Nama"
+						renderInput={(field, invalid) => (
+							<Input
+								{...field}
+								id={field.name}
+								aria-invalid={invalid}
+								placeholder="Team app"
+								autoComplete="Team app"
+								className="h-10"
+								maxLength={50}
+							/>
+						)}
+					/>
+					<FormField
+						control={workspaceForm.control}
+						name="description"
+						label="Deskripsi"
+						isOptional
+						renderInput={(field, invalid) => (
+							<Textarea
+								{...field}
+								id={field.name}
+								aria-invalid={invalid}
+								placeholder="Website teamm frontend Taskly"
+								autoComplete="Website teamm frontend Taskly"
+								rows={5}
+								maxLength={150}
+								className="resize-none h-20"
+							/>
+						)}
+					/>
+				</FieldGroup>
 			</form>
 			<DialogFooter className="gap-2 sm:gap-0 pt-2">
 				<DialogClose

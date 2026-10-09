@@ -18,7 +18,10 @@ export async function updateWorkspaceAction(
 			throw AppError.fromZod(parsed.error);
 		}
 
-		await updateWorkspaceDAL(id, parsed.data.name);
+		await updateWorkspaceDAL(id, {
+			name: parsed.data.name,
+			description: parsed.data.description,
+		});
 
 		revalidatePath("/workspaces");
 		revalidatePath(`/workspaces/${id}`);

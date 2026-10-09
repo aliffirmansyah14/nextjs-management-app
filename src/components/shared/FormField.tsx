@@ -15,6 +15,7 @@ type FormFieldProps<
 	control: Control<TFieldValues>;
 	name: TName;
 	label: string;
+	isOptional?: boolean;
 	renderInput?: (
 		field: ControllerRenderProps<TFieldValues, TName>,
 		invalid: boolean,
@@ -24,14 +25,25 @@ type FormFieldProps<
 export function FormField<
 	TFieldValues extends FieldValues,
 	TName extends FieldPath<TFieldValues>,
->({ control, name, label, renderInput }: FormFieldProps<TFieldValues, TName>) {
+>({
+	control,
+	name,
+	label,
+	renderInput,
+	isOptional = false,
+}: FormFieldProps<TFieldValues, TName>) {
 	return (
 		<Controller
 			control={control}
 			name={name}
 			render={({ field, fieldState }) => (
 				<Field data-invalid={fieldState.invalid}>
-					<FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+					<div className="flex gap-2 items-end">
+						<FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+						{isOptional && (
+							<span className="text-xs text-muted-foreground">(opsional)</span>
+						)}
+					</div>
 
 					{renderInput && renderInput(field, fieldState.invalid)}
 					{fieldState.error && <FieldError errors={[fieldState.error]} />}

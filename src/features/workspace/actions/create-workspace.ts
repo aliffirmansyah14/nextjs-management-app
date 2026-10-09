@@ -15,7 +15,10 @@ export async function createWorkspaceAction(
 			throw AppError.fromZod(parsed.error);
 		}
 
-		await createWorkspaceDAL(parsed.data.name);
+		await createWorkspaceDAL({
+			name: parsed.data.name,
+			description: parsed.data.description,
+		});
 
 		revalidatePath("/workspaces");
 

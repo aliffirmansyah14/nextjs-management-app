@@ -12,14 +12,20 @@ import { useWorkspaceModal } from "../stores/use-workspace-modal";
 type WorkspaceMenuProps = {
 	workspaceId: string;
 	workspaceName: string;
+	workspaceDescription?: string | null;
 };
 
 export default function WorkspaceMenu({
 	workspaceId,
 	workspaceName,
+	workspaceDescription,
 }: WorkspaceMenuProps) {
 	const openModal = useWorkspaceModal(state => state.openModal);
-	const data = { id: workspaceId, name: workspaceName };
+	const data = {
+		id: workspaceId,
+		name: workspaceName,
+		description: workspaceDescription,
+	};
 
 	return (
 		<DropdownMenu>

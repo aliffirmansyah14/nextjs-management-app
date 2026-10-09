@@ -9,6 +9,7 @@ type WorkspaceCardProps = {
 	id: string;
 	index: number;
 	name: string;
+	description?: string | null;
 	countProjects: number;
 };
 
@@ -16,6 +17,7 @@ export default function WorkspaceCard({
 	index,
 	name,
 	id,
+	description,
 	countProjects,
 }: WorkspaceCardProps) {
 	return (
@@ -39,7 +41,11 @@ export default function WorkspaceCard({
 				</Link>
 
 				{/* Tombol Menu di luar tag Link */}
-				<WorkspaceMenu workspaceId={id} workspaceName={name} />
+				<WorkspaceMenu
+					workspaceId={id}
+					workspaceName={name}
+					workspaceDescription={description}
+				/>
 			</CardContent>
 		</Card>
 	);

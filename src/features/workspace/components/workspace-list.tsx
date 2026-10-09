@@ -34,6 +34,7 @@ export default async function WorkspacesList({
 					id={workspace.id}
 					name={workspace.name}
 					countProjects={workspace._count.projects}
+					description={workspace.description}
 				/>
 			))}
 		</div>

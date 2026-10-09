@@ -4,8 +4,12 @@ import { AppError } from "@/lib/app-error";
 import { requireSession } from "@/lib/auth/session";
 import { prisma } from "@/lib/prisma";
 import { getWorkspaceById } from "../queries/get-workspace-by-id";
+import { WorkspaceFormType } from "../schemas/workspace-schema";
 
-export async function updateWorkspaceDAL(id: string, name: string) {
+export async function updateWorkspaceDAL(
+	id: string,
+	{ name, description }: WorkspaceFormType,
+) {
 	const { user } = await requireSession();
 
 	const workspace = await getWorkspaceById(id, user.id);
@@ -19,6 +23,7 @@ export async function updateWorkspaceDAL(id: string, name: string) {
 	return prisma.workspace.update({
 		data: {
 			name,
+			description,
 		},
 		where: {
 			id,

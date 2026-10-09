@@ -5,6 +5,7 @@ type WorkspaceModalType = "create" | "edit" | "delete";
 type WorkspaceData = {
 	id: string;
 	name: string;
+	description?: string | null;
 };
 
 type WorkspaceModalState = {

@@ -8,6 +8,7 @@ export const getUserWorkspaces = async (userId: string) => {
 		select: {
 			id: true,
 			name: true,
+			description: true,
 			_count: {
 				select: {
 					projects: true,
