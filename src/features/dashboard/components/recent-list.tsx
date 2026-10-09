@@ -101,7 +101,11 @@ export default async function RecentList({
 
 						return (
 							<DashboardCardContent key={project.id}>
-								<Icon icon={Package} bgColor={color.bg} color={color.icon} />
+								<Icon
+									icon={Package}
+									bgColor={color.bg}
+									iconStyle={color.icon}
+								/>
 								<div className="flex-1 space-y-1">
 									<div className="grid gap-1">
 										<div className="font-semibold text-slate-600">

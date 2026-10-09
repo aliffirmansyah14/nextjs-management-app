@@ -61,7 +61,7 @@ export default function StatCard({
 					<Icon
 						bgColor={styleIconColor[color].bg}
 						icon={icon}
-						color={styleIconColor[color].icon}
+						iconStyle={styleIconColor[color].icon}
 					/>
 				</div>
 				<div className="text-sm font-medium text-muted-foreground">{title}</div>

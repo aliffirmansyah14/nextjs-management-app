@@ -3,7 +3,7 @@ import { Icon as IconType } from "@/types/icon";
 
 type IconProps = {
 	icon: IconType;
-	color: string;
+	iconStyle: string;
 	bgColor: string;
 	size?: "lg" | "sm" | "default";
 } & React.ComponentPropsWithoutRef<"div">;
@@ -11,7 +11,7 @@ type IconProps = {
 export default function Icon({
 	className,
 	icon,
-	color,
+	iconStyle,
 	bgColor,
 	size = "default",
 	...props
@@ -32,7 +32,7 @@ export default function Icon({
 			)}
 			{...props}
 		>
-			<Icon className={`${sizeIcon[size]} ${color}`} />
+			<Icon className={`${sizeIcon[size]} ${iconStyle}`} strokeWidth={2} />
 		</div>
 	);
 }
