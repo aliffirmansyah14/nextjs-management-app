@@ -2,7 +2,6 @@ import {
 	Table,
 	TableBody,
 	TableCaption,
-	TableCell,
 	TableHead,
 	TableHeader,
 	TableRow,
@@ -11,9 +10,9 @@ import DashboardCard from "./dashboard-card";
 import TaskTableRow from "./task-table-row";
 import { User } from "@/types/user";
 import { TaskStatusParams } from "../types/status-params";
-import { TaskStatusTab } from "./task-status-tabs";
 import { Suspense } from "react";
 import TaskTableLoading from "./task-table-loading";
+import FilterTabs from "@/components/shared/filter-tabs";
 
 type MyTaskTableProps = {
 	searchhParamsPromise: Promise<{
@@ -43,8 +42,20 @@ export async function MyTaskTable({
 			title="My Task"
 			actionUrl="/tasks"
 		>
-			{/* status tab */}
-			<TaskStatusTab />
+			{/*filter status tab dengna params*/}
+			<FilterTabs
+				queryKey="status"
+				tabs={
+					{
+						ALL: "All",
+						TODO: "Todo",
+						IN_PROGRESS: "In Progress",
+						DONE: "Done",
+					} as Record<TaskStatusParams, string>
+				}
+				allValues="ALL"
+				variant={"line"}
+			/>
 			{/* table */}
 			<Table>
 				<TableCaption>Daftar task yang dikerjakan</TableCaption>

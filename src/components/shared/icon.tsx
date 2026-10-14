@@ -26,7 +26,7 @@ export default function Icon({
 	return (
 		<div
 			className={cn(
-				"flex rounded-full p-2 justify-center items-center",
+				"flex rounded-full p-1 md:p-2 justify-center items-center",
 				bgColor,
 				className,
 			)}

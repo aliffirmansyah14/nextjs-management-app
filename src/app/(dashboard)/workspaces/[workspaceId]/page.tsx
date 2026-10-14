@@ -1,19 +1,28 @@
 import AppContainer from "@/components/layouts/app-container";
-import WorkspaceIcon from "@/components/shared/workspace-icon";
-import { Button } from "@/components/ui/button";
+import FilterSearchInput from "@/components/shared/filter-search-input";
+import FilterSelect from "@/components/shared/filter-select";
+import FilterTabs from "@/components/shared/filter-tabs";
+import ButtonTriggerCreateProjectDialog from "@/features/workspace/components/button-trigger-create-project-dialog";
+import ProjectList from "@/features/workspace/components/project-list";
+import WorkspaceHeader from "@/features/workspace/components/workspace-header";
+import WorkspaceProjects from "@/features/workspace/components/workspace-projects";
+import WorkspaceStats from "@/features/workspace/components/workspace-stats";
+import WorkspaceStatsSkeleton from "@/features/workspace/components/workspace-stats-skeleton";
 import { getWorkspaceById } from "@/features/workspace/queries/get-workspace-by-id";
+import { getWorkspaceStats } from "@/features/workspace/queries/get-workspace-stats";
 import { getCurrentUser } from "@/lib/auth/session";
-import { styleColorWorkspace } from "@/lib/utils";
-import { ArrowLeft, Folder, Plus } from "lucide-react";
-import Link from "next/link";
-import { redirect } from "next/navigation";
+import { SortByParams } from "@/types/params";
+import { notFound, redirect } from "next/navigation";
+import { Suspense } from "react";
 
 type WorkspaceDetailPageProps = {
 	params: Promise<{ workspaceId: string }>;
+	searchParams: Promise<{ q?: string; sort?: SortByParams }>;
 };
 
 export default async function WorkspaceDetailPage({
 	params,
+	searchParams,
 }: WorkspaceDetailPageProps) {
 	const user = await getCurrentUser();
 
@@ -25,54 +34,38 @@ export default async function WorkspaceDetailPage({
 
 	const workpace = await getWorkspaceById(id, user.id);
 
+	if (!workpace) {
+		notFound();
+	}
+	const promiseWorkspaceStats = getWorkspaceStats(id, user.id);
+
 	return (
 		<AppContainer>
-			<div className="w-full flex flex-row md:flex-col gap-2 items-start">
-				<Link
-					href="/workspaces"
-					className="flex items-center pt-1 md:pt-0 gap-3 text-sm text-muted-foreground hover:text-black"
-				>
-					<ArrowLeft className="size-4" />
-					<span className="hidden md:block"> Kembali ke workspaces</span>
-				</Link>
+			<WorkspaceHeader
+				name={workpace.name}
+				projectsCount={workpace.projects.length}
+				description={workpace.description}
+			/>
+			<div className="mt-8 pb-4 md:pb-0 rounded-md bg-card md:bg-transparent shadow md:shadow-none space-y-1">
+				<Suspense fallback={<WorkspaceStatsSkeleton />}>
+					<WorkspaceStats promiseWorkspaceStats={promiseWorkspaceStats} />
+				</Suspense>
 
-				<div className="w-full 	flex justify-between">
-					<div className="flex gap-2">
-						<WorkspaceIcon
-							styleIcon={`${styleColorWorkspace[1].base} size-20 text-5xl rounded-3xl`}
-							text={workpace?.name || "p"}
-							className="hidden md:block rounded-4xl bg-zinc-200 p-1.5 shadow overflow-hidden"
-						/>
+				<ButtonTriggerCreateProjectDialog className="md:hidden flex w-[90%] mx-auto py-5" />
+			</div>
+			{/* projects */}
+			<div className="py-6 space-y-2">
+				<h2 className="hidden md:block text-xl font-semibold tracking-tight">
+					Projects
+				</h2>
 
-						{/* detail */}
-						<div className="flex flex-col gap-2">
-							<h1 className="text-base md:text-xl font-semibold tracking-tight">
-								{workpace?.name}
-							</h1>
-							{/* dummy */}
-							<div className="text-muted-foreground text-xs md:text-sm">
-								Workspace untuk tim desain produk Taskly
-							</div>
-							<div className="flex items-center gap-4">
-								<div className="flex items-center gap-2">
-									<Folder className="size-4 " />
-									<div className="text-xs md:text-sm text-muted-foreground ">
-										<span>5</span>
-										<span className="ms-1">projects</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					{/* button trigger create project */}
-					<Button
-						type="button"
-						className="py-4 px-3 [&_span]:hidden md:[&_span]:inline"
-					>
-						<Plus className="size-4" />
-						<span> Buat Project baru </span>
-					</Button>
-				</div>
+				<Suspense fallback={<div>workspace loading...</div>}>
+					<WorkspaceProjects
+						searchParamsPromise={searchParams}
+						userId={user.id}
+						workspaceId={workpace.id}
+					/>
+				</Suspense>
 			</div>
 		</AppContainer>
 	);

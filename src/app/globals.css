@@ -41,6 +41,12 @@
 	--color-card: var(--card);
 
 	--color-status-done: var(--status-done);
+	--color-status-todo: var(--status-todo);
+	--color-status-progress: var(--status-progress);
+
+	--color-priority-low: var(--priority-low);
+	--color-priority-medium: var(--priority-medium);
+	--color-priority-high: var(--priority-high);
 
 	--radius-sm: calc(var(--radius) * 0.6);
 	--radius-md: calc(var(--radius) * 0.8);
@@ -244,5 +250,17 @@
 	}
 	html {
 		@apply font-sans;
+	}
+}
+
+@layer utilities {
+	/* menghilangkan tanda x di input search */
+	.no-search-x {
+		&::-webkit-search-decoration,
+		&::-webkit-search-cancel-button,
+		&::-webkit-search-results-button,
+		&::-webkit-search-results-decoration {
+			display: none;
+		}
 	}
 }
