@@ -17,14 +17,14 @@ import { startTransition, useCallback, useOptimistic } from "react";
 type FilterSelectProps<T extends string> = {
 	items: { label: string; value: T }[];
 	paramKey: string;
-	allValues?: T;
+	defaultValues?: T;
 	groupName: string;
 	className?: string;
 };
 export default function FilterSelect<T extends string>({
 	items,
 	paramKey,
-	allValues = "All" as T,
+	defaultValues,
 	groupName,
 	className,
 }: FilterSelectProps<T>) {
@@ -32,7 +32,8 @@ export default function FilterSelect<T extends string>({
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 
-	const currentFilter = searchParams.get(paramKey) ?? allValues;
+	const currentFilter =
+		searchParams.get(paramKey) ?? defaultValues ?? items[0].value;
 
 	const [optimisticFilter, setOptimisticFilter] = useOptimistic(
 		currentFilter,
@@ -44,14 +45,15 @@ export default function FilterSelect<T extends string>({
 			if (newValue === null) return;
 
 			const isValidValue =
-				newValue === allValues || items.some(item => item.value === newValue);
+				newValue === defaultValues ||
+				items.some(item => item.value === newValue);
 
 			if (!isValidValue) return;
 
 			const value = newValue as T;
 			const params = new URLSearchParams(searchParams.toString());
 
-			if (value === allValues) {
+			if (value === defaultValues) {
 				params.delete(paramKey);
 			} else {
 				params.set(paramKey, value);
@@ -67,7 +69,7 @@ export default function FilterSelect<T extends string>({
 				router.replace(newUrl, { scroll: false });
 			});
 		},
-		[router, pathname, searchParams.toString(), paramKey, allValues],
+		[router, pathname, searchParams.toString(), paramKey, defaultValues],
 	);
 
 	return (
