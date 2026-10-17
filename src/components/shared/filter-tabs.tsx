@@ -37,7 +37,6 @@ export default function FilterTabs<T extends string>({
 		(newStatus: string) => {
 			const status = newStatus as T;
 
-			// 2. Buat URL baru
 			const params = new URLSearchParams(searchParams.toString());
 			if (status === allValues) {
 				params.delete(queryKey);
@@ -47,12 +46,10 @@ export default function FilterTabs<T extends string>({
 
 			const newUrl = `${pathname}?${params.toString()}`;
 
-			// 3. Update URL di browser address bar langsung tanpa menunggu Next.js
+			// Update URL di browser address bar langsung tanpa menunggu Next.js
 			window.history.replaceState(null, "", newUrl);
 
-			// 4. Minta Next.js memperbarui data server di background
 			startTransition(() => {
-				// 5. Update UI secara optimis (Seketika/Instan)
 				setOptimisticParams(status);
 
 				router.replace(newUrl, { scroll: false });
