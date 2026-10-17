@@ -20,7 +20,7 @@ export default function ProjectCard({
 }: ProjectsCardProps) {
 	const styleKey = Math.floor(Math.random() * styleColorWorkspace.length);
 	return (
-		<Card className="rounded-none rounde-xl">
+		<Card className="rounded-none md:rounded-xl">
 			<CardContent
 				className={cn(
 					"grid gap-x-3 gap-y-2 md:gap-y-4",
