@@ -5,11 +5,11 @@ export const workspaceSchema = z.object({
 		.string()
 		.trim()
 		.min(1, "Nama workspace wajib diisi")
-		.max(32, "Nama workspace maksimal 50 karakter"),
+		.max(32, "Nama workspace maksimal 32 karakter"),
 	description: z
 		.string()
 		.trim()
-		.max(150, "Deskripsi workspace maksimal 50 karakter")
+		.max(150, "Deskripsi workspace maksimal 150 karakter")
 		.optional(),
 });
 
