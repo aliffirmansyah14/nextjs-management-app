@@ -6,7 +6,7 @@ import SidebarHeader from "./sidebar/sidebar-header";
 
 export default function AppHeader() {
 	return (
-		<header className="bg-card h-17 py-3 border-b border-border">
+		<header className="bg-card sticky top-0 h-17 py-3 border-b border-border z-10">
 			<div className="h-full flex items-center gap-8 px-4 md:px-6">
 				<div className="md:hidden flex items-center gap-2">
 					<ButtonTriggerMobileNav />
