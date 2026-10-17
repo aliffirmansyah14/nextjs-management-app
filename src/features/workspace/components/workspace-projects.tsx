@@ -4,7 +4,6 @@ import { SortByParams } from "@/types/params";
 import { Suspense } from "react";
 import ProjectList from "./project-list";
 import ProjectCardSkeleton from "./project-card-skeleton";
-import { delay } from "@/lib/utils";
 
 type WorkspaceProjectsProps = {
 	workspaceId: string;
@@ -32,7 +31,6 @@ export default async function WorkspaceProjects({
 	userId,
 	searchParamsPromise,
 }: WorkspaceProjectsProps) {
-	await delay(3000);
 	const { q, sort } = await searchParamsPromise;
 	const query = q ?? "";
 

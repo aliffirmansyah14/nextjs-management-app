@@ -62,7 +62,9 @@ export default async function ProjectList({
 				<ProjectCard
 					key={project.id}
 					id={project.id}
+					workspaceId={workspaceId}
 					name={project.name}
+					description={project?.description}
 					task={project.tasks.map(t => ({ name: t.name }))}
 				/>
 			))}

@@ -1,19 +1,21 @@
 import WorkspaceIcon from "@/components/shared/workspace-icon";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import ProjectMenu from "@/features/project/components/project-menu";
 import { cn, styleColorWorkspace } from "@/lib/utils";
-import { CheckSquare, Ellipsis } from "lucide-react";
+import { CheckSquare, Ellipsis, EllipsisIcon } from "lucide-react";
 
 type ProjectsCardProps = {
 	id: string;
+	workspaceId: string;
 	name: string;
 	task: { name: string }[];
-	description?: string;
+	description?: string | null;
 };
 
 export default function ProjectCard({
 	id,
+	workspaceId,
 	name,
 	task,
 	description,
@@ -35,7 +37,7 @@ export default function ProjectCard({
 				<div className="[grid-area:icon] self-start">
 					<WorkspaceIcon
 						styleIcon={`${styleColorWorkspace[styleKey].base} size-8 text-base rounded-lg`}
-						text={"Website design"}
+						text={name}
 					/>
 				</div>
 
@@ -48,9 +50,16 @@ export default function ProjectCard({
 
 				{/* 3. Menu */}
 				<div className="[grid-area:menu] self-start">
-					<Button variant="ghost" size="icon" className="size-8">
-						<Ellipsis className="size-4 text-muted-foreground" />
-					</Button>
+					<ProjectMenu
+						id={id}
+						projectName={name}
+						projectDescription={description}
+						renderTrigger={
+							<Button variant="ghost" size="icon" className="shrink-0">
+								<EllipsisIcon className="size-4 text-muted-foreground" />
+							</Button>
+						}
+					/>
 				</div>
 
 				{/* 4. Informasi */}
@@ -65,8 +74,7 @@ export default function ProjectCard({
 				{/* 5. Deskripsi (Sembunyikan di mobile, tampilkan di desktop) */}
 				<div className="[grid-area:deskripsi] hidden md:block mt-1">
 					<p className="text-muted-foreground tracking-tight text-xs">
-						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique,
-						nemo!
+						{description ?? "Belum ada deskripsi project"}
 					</p>
 				</div>
 			</CardContent>

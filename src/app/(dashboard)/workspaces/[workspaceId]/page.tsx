@@ -1,10 +1,10 @@
 import AppContainer from "@/components/layouts/app-container";
-import FilterSearchInput from "@/components/shared/filter-search-input";
-import FilterSelect from "@/components/shared/filter-select";
-import FilterTabs from "@/components/shared/filter-tabs";
-import ButtonTriggerCreateProjectDialog from "@/features/workspace/components/button-trigger-create-project-dialog";
+import CreateProjectDialog, {
+	CreateProjectTriggerDialog,
+} from "@/features/project/components/create-project-dialog";
+import { DeleteProjectDialog } from "@/features/project/components/delete-project-dialog";
+import UpdateProjectDialog from "@/features/project/components/update-project-dialog";
 import FilterSkeleton from "@/features/workspace/components/filter-skeleton";
-import ProjectList from "@/features/workspace/components/project-list";
 import WorkspaceHeader from "@/features/workspace/components/workspace-header";
 import WorkspaceProjects from "@/features/workspace/components/workspace-projects";
 import WorkspaceStats from "@/features/workspace/components/workspace-stats";
@@ -52,7 +52,7 @@ export default async function WorkspaceDetailPage({
 					<WorkspaceStats promiseWorkspaceStats={promiseWorkspaceStats} />
 				</Suspense>
 
-				<ButtonTriggerCreateProjectDialog className="md:hidden flex w-[90%] mx-auto py-5" />
+				<CreateProjectTriggerDialog className="md:hidden flex w-[90%] mx-auto py-5" />
 			</div>
 			{/* projects */}
 			<div className="py-6 space-y-2">
@@ -68,6 +68,11 @@ export default async function WorkspaceDetailPage({
 					/>
 				</Suspense>
 			</div>
+
+			{/* dialog form project */}
+			<CreateProjectDialog workspaceId={id} />
+			<UpdateProjectDialog workspaceId={id} />
+			<DeleteProjectDialog workspaceId={id} />
 		</AppContainer>
 	);
 }

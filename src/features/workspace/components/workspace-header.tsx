@@ -1,9 +1,8 @@
 import WorkspaceIcon from "@/components/shared/workspace-icon";
-import { Button } from "@/components/ui/button";
 import { styleColorWorkspace } from "@/lib/utils";
-import { ArrowLeft, Folder, Plus } from "lucide-react";
+import { ArrowLeft, Folder } from "lucide-react";
 import Link from "next/link";
-import ButtonTriggerCreateProjectDialog from "./button-trigger-create-project-dialog";
+import { CreateProjectTriggerDialog } from "@/features/project/components/create-project-dialog";
 
 type WorkspaceHeaderProps = {
 	name: string;
@@ -58,7 +57,7 @@ export default function WorkspaceHeader({
 					</div>
 				</div>
 				{/* button trigger create project */}
-				<ButtonTriggerCreateProjectDialog />
+				<CreateProjectTriggerDialog />
 			</div>
 		</div>
 	);

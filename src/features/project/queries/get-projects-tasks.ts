@@ -23,6 +23,7 @@ export const getProjectsTask = async (
 					name: true,
 				},
 			},
+			description: true,
 			createdAt: true,
 			updatedAt: true,
 		},

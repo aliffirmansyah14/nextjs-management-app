@@ -2,7 +2,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getWorkspaceStats } from "../queries/get-workspace-stats";
 import { CheckCircle2, Clock, FolderCheck, FolderOpen } from "lucide-react";
 import Icon from "@/components/shared/icon";
-import { delay } from "@/lib/utils";
 
 type WorkspaceStatsProps = {
 	promiseWorkspaceStats: ReturnType<typeof getWorkspaceStats>;
@@ -71,8 +70,6 @@ const workspaceStatsRender: Record<StatKey, StatConfig> = {
 export default async function WorkspaceStats({
 	promiseWorkspaceStats,
 }: WorkspaceStatsProps) {
-	await delay(1500);
-
 	const workspaceStats = await promiseWorkspaceStats;
 	// 	biar jadi [
 	// 	[ task,0	],[projects,0]
