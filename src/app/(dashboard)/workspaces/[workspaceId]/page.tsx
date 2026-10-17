@@ -1,4 +1,5 @@
 import AppContainer from "@/components/layouts/app-container";
+import { Button } from "@/components/ui/button";
 import CreateProjectDialog, {
 	CreateProjectTriggerDialog,
 } from "@/features/project/components/create-project-dialog";
@@ -13,6 +14,7 @@ import { getWorkspaceById } from "@/features/workspace/queries/get-workspace-by-
 import { getWorkspaceStats } from "@/features/workspace/queries/get-workspace-stats";
 import { getCurrentUser } from "@/lib/auth/session";
 import { SortByParams } from "@/types/params";
+import { Plus } from "lucide-react";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
 
@@ -48,11 +50,26 @@ export default async function WorkspaceDetailPage({
 				description={workpace.description}
 			/>
 			<div className="mt-8 pb-4 md:pb-0 rounded-md bg-card md:bg-transparent shadow md:shadow-none space-y-1">
-				<Suspense fallback={<WorkspaceStatsSkeleton />}>
+				<Suspense
+					fallback={
+						<>
+							<WorkspaceStatsSkeleton />
+							<Button
+								type="button"
+								disabled={true}
+								className={
+									"md:hidden flex w-[90%] mx-auto py-5 disabled:bg-primary/30"
+								}
+							>
+								<Plus className="size-4" />
+								<span> Buat Project baru </span>
+							</Button>
+						</>
+					}
+				>
 					<WorkspaceStats promiseWorkspaceStats={promiseWorkspaceStats} />
+					<CreateProjectTriggerDialog className="md:hidden flex w-[90%] mx-auto py-5" />
 				</Suspense>
-
-				<CreateProjectTriggerDialog className="md:hidden flex w-[90%] mx-auto py-5" />
 			</div>
 			{/* projects */}
 			<div className="py-6 space-y-2">
