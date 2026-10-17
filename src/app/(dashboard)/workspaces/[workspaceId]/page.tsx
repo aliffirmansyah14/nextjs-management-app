@@ -3,6 +3,7 @@ import FilterSearchInput from "@/components/shared/filter-search-input";
 import FilterSelect from "@/components/shared/filter-select";
 import FilterTabs from "@/components/shared/filter-tabs";
 import ButtonTriggerCreateProjectDialog from "@/features/workspace/components/button-trigger-create-project-dialog";
+import FilterSkeleton from "@/features/workspace/components/filter-skeleton";
 import ProjectList from "@/features/workspace/components/project-list";
 import WorkspaceHeader from "@/features/workspace/components/workspace-header";
 import WorkspaceProjects from "@/features/workspace/components/workspace-projects";
@@ -59,7 +60,7 @@ export default async function WorkspaceDetailPage({
 					Projects
 				</h2>
 
-				<Suspense fallback={<div>workspace loading...</div>}>
+				<Suspense fallback={<FilterSkeleton />}>
 					<WorkspaceProjects
 						searchParamsPromise={searchParams}
 						userId={user.id}

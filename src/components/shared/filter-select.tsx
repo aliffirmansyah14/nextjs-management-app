@@ -10,6 +10,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { cn } from "cn";
+import { Filter } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { startTransition, useCallback, useOptimistic } from "react";
 
@@ -17,14 +18,14 @@ type FilterSelectProps<T extends string> = {
 	items: { label: string; value: T }[];
 	paramKey: string;
 	allValues?: T;
-	placeholder: string;
+	groupName: string;
 	className?: string;
 };
 export default function FilterSelect<T extends string>({
 	items,
 	paramKey,
 	allValues = "All" as T,
-	placeholder,
+	groupName,
 	className,
 }: FilterSelectProps<T>) {
 	const router = useRouter();
@@ -75,12 +76,14 @@ export default function FilterSelect<T extends string>({
 			value={optimisticFilter}
 			onValueChange={handleValueChange}
 		>
-			<SelectTrigger className={cn("w-40 h-10 ", className)}>
-				<SelectValue placeholder={placeholder} />
+			<SelectTrigger className={cn("w-fit h-10 ", className)}>
+				<SelectValue>
+					<Filter />
+				</SelectValue>
 			</SelectTrigger>
 			<SelectContent>
 				<SelectGroup>
-					<SelectLabel>{placeholder}</SelectLabel>
+					<SelectLabel>{groupName}</SelectLabel>
 					{items.map(item => (
 						<SelectItem key={item.value} value={item.value}>
 							{item.label}

@@ -4,6 +4,7 @@ import { SortByParams } from "@/types/params";
 import { Suspense } from "react";
 import ProjectList from "./project-list";
 import ProjectCardSkeleton from "./project-card-skeleton";
+import { delay } from "@/lib/utils";
 
 type WorkspaceProjectsProps = {
 	workspaceId: string;
@@ -31,6 +32,7 @@ export default async function WorkspaceProjects({
 	userId,
 	searchParamsPromise,
 }: WorkspaceProjectsProps) {
+	await delay(3000);
 	const { q, sort } = await searchParamsPromise;
 	const query = q ?? "";
 
@@ -41,20 +43,19 @@ export default async function WorkspaceProjects({
 	return (
 		<div className="space-y-4 md:space-y-6">
 			{/* Filter Section */}
-			<div className="flex justify-end gap-4 items-center">
-				<div className="w-full max-w-sm">
+			<div className="flex md:justify-end gap-1 md:gap-3 items-center">
+				<div className="flex-1 md:max-w-64">
 					<FilterSearchInput
 						paramKey="q"
 						debounceTime={500}
 						placeholder="Search Projects..."
-						className="md:text-sm text-xs"
 					/>
 				</div>
 				<FilterSelect
 					items={sortItems}
 					paramKey="sort"
-					placeholder="Sort by"
-					className="bg-card"
+					groupName="Sort by"
+					className="bg-card tracking-tight "
 				/>
 			</div>
 

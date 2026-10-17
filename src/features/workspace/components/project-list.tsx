@@ -42,7 +42,7 @@ export default async function ProjectList({
 
 	if (projects.length === 0) {
 		return (
-			<Card className="border-border/40 shadow-sm">
+			<Card className="border-border/40 shadow-sm rounded-none md:rounded-xl">
 				<EmptyState
 					icon={<Inbox className="size-6 text-primary" />}
 					title="Tidak ada project ditemukan"
@@ -57,7 +57,7 @@ export default async function ProjectList({
 	}
 
 	return (
-		<div className="grid md:grid-cols-3 gap-4">
+		<div className="grid md:grid-cols-3 md:gap-4">
 			{projects.map(project => (
 				<ProjectCard
 					key={project.id}
