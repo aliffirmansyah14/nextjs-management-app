@@ -96,6 +96,7 @@ model Workspace{
 model Project {
 	id					String @id @default(cuid())
 	name				String
+	description		String?
 
 	workspaceId		String
 	workspace		Workspace @relation(fields: [workspaceId],references: [id])
