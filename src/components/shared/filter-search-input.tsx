@@ -48,13 +48,7 @@ export default function FilterSearchInput({
 		startTransition(() => {
 			router.replace(newUrl, { scroll: false });
 		});
-	}, [
-		debounceQuery,
-		paramKey,
-		pathname,
-		router,
-		searchParams.entries.toString(),
-	]);
+	}, [debounceQuery, paramKey, pathname, router, searchParams.toString()]);
 
 	return (
 		<div className="w-full relative">
