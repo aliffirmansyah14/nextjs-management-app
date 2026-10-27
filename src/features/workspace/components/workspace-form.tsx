@@ -50,7 +50,7 @@ export default function WorkspaceForm({ onLoadingChange }: WorkspaceFormProps) {
 		} else if (type === "create") {
 			workspaceForm.reset({ name: "" });
 		}
-	}, [data, type, workspaceForm]);
+	}, [data, type, workspaceForm.reset]);
 
 	const isSubmitting = workspaceForm.formState.isSubmitting;
 
@@ -75,7 +75,7 @@ export default function WorkspaceForm({ onLoadingChange }: WorkspaceFormProps) {
 
 				// tambahin error zod diserver jika ada error zod
 				if (response.errors) {
-					Object.keys(response.errors).forEach(([field, message]) => {
+					Object.entries(response.errors).forEach(([field, message]) => {
 						workspaceForm.setError(field as keyof WorkspaceFormType, {
 							message: Array.isArray(message) ? message[0] : message,
 						});

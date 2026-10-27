@@ -50,7 +50,7 @@ export default function ProjectForm({
 		} else if (type === "create") {
 			projectForm.reset({ name: "" });
 		}
-	}, [data, type]);
+	}, [data, type, projectForm.reset]);
 
 	const isSubmitting = projectForm.formState.isSubmitting;
 
@@ -78,7 +78,7 @@ export default function ProjectForm({
 
 				// tambahin error zod diserver jika ada error zod
 				if (response.errors) {
-					Object.keys(response.errors).forEach(([field, message]) => {
+					Object.entries(response.errors).forEach(([field, message]) => {
 						projectForm.setError(field as keyof ProjectFormType, {
 							message: Array.isArray(message) ? message[0] : message,
 						});
