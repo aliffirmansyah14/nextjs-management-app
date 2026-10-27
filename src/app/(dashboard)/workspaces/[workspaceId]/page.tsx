@@ -46,7 +46,7 @@ export default async function WorkspaceDetailPage({
 		<AppContainer>
 			<WorkspaceHeader
 				name={workpace.name}
-				projectsCount={workpace.projects.length}
+				projectsCount={workpace._count.projects}
 				description={workpace.description}
 			/>
 			<div className="mt-8 pb-4 md:pb-0 rounded-md bg-card md:bg-transparent shadow md:shadow-none space-y-1">
